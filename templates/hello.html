@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <title>{{ product.name }}</title>
+  </head>
+  <body>
+    <h1>{{ product.name | upper }} - {{ product.manufacturer }}</h1>
+    <p>{{ product.summary }}</p>
+    <p>£{{ product.price * 1.20 }} (VAT inc.)</p>
+    <button>Buy!</button>
+  </body>
+</html>

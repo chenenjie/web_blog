@@ -1,0 +1,16 @@
+[package]
+name = "e_web"
+version = "0.1.0"
+authors = ["chenej <chenej@gzyitop.com>"]
+
+[dependencies]
+time = "*"
+glob = "0.2"
+tera = "*"
+serde_derive = "0.9"
+serde_json = "0.9"
+serde = "0.9"
+lazy_static = "0.2.2"
+
+[dependencies.iron]
+version = "*"
