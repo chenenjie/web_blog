@@ -56,8 +56,13 @@ impl AfterMiddleware for ResponseTime {
 fn hello_world(_: &mut Request) -> IronResult<Response> {
     let product = Product::new();
 
-    let render_str = RenderBuilder::new().add("product", &product).add("vat_rate", &0.20).render("templates/hello.html").unwrap_or("render_false".to_string());
-    let response = Response::with((iron::status::Ok, render_str))
+    let render_str = RenderBuilder::new()
+        .add("product", &product)
+        .add("vat_rate", &0.20)
+        .render("hello.html")
+        .unwrap_or("render_false".to_string());
+    let mut response = Response::with((iron::status::Ok, render_str));
+    response.headers.set_raw("Content-Type", vec![b"text/html; charset=UTF-8".to_vec()]);
     Ok(response)
 }
 
