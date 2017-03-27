@@ -47,7 +47,6 @@ impl BeforeMiddleware for ResponseTime {
 impl AfterMiddleware for ResponseTime {
     fn after(&self, req: &mut Request, res: Response) -> IronResult<Response> {
         let delta = precise_time_ns() - *req.extensions.get::<ResponseTime>().unwrap();
-        println!("Request took: {} ms", (delta as f64) / 1000000.0);
         Ok(res)
     }
 }
@@ -57,14 +56,13 @@ fn hello_world(_: &mut Request) -> IronResult<Response> {
     let product = Product::new();
 
     let render_str = RenderBuilder::new().add("product", &product).add("vat_rate", &0.20).render("templates/hello.html").unwrap_or("render_false".to_string());
-    let response = Response::with((iron::status::Ok, render_str))
+    let mut response = Response::with((iron::status::Ok, render_str));
+    response.headers.set_raw("Content-Type", vec![b"text/html; charset=utf-8".to_vec()]);
     Ok(response)
 }
 
 
 fn main() {
     let mut chain = Chain::new(hello_world);
-    chain.link_before(ResponseTime);
-    chain.link_after(ResponseTime);
     Iron::new(chain).http("localhost:3000").unwrap();
 }
