@@ -59,7 +59,7 @@ fn main() {
 
     println!("{:?}", tera);
 
-    match tera.render("templates/hello.html", context) {
+    match tera.render("templates/hello.html", &context) {
         Ok(s) => println!("{:?}", s),
         Err(e) => {
             println!("Error: {}", e);
