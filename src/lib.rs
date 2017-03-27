@@ -42,7 +42,7 @@ impl RenderBuilder {
     pub fn render(self, template: &str) -> Result<String, Error> {
         let copy = TEMPLATES.clone();
         let tera = copy.lock().unwrap();
-        tera.render(template, self.context)
+        tera.render(template, &self.context)
     }
 }
 
